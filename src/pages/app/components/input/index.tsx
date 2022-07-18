@@ -1,6 +1,7 @@
-import React, { ChangeEvent } from 'react';
-import { IProps } from './types';
-import { fmtValue } from './helpers';
+import React, { useState, useRef } from 'react';
+import { fmtValueToLocaleString } from '@pages/app/helpers';
+import { IProps, TInputRef } from './types';
+import { handleChange, handleOnFocus, handleOnBlur } from './helpers';
 import * as Styled from './styles';
 
 export const Input: React.FC<IProps> = ({
@@ -9,8 +10,8 @@ export const Input: React.FC<IProps> = ({
   value,
   handleUpdateValue,
 }) => {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    handleUpdateValue(fmtValue(e?.target?.value));
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const ref = useRef<TInputRef>(null);
 
   return (
     <Styled.Wrapper>
@@ -19,12 +20,19 @@ export const Input: React.FC<IProps> = ({
         &nbsp;
         {label}
       </label>
-      <Styled.Input
-        name={name}
-        type="number"
-        value={value}
-        onChange={handleChange}
-      />
+      <Styled.InputWrapper $isFocused={isFocused}>
+        <input
+          ref={ref}
+          name={name}
+          type="number"
+          value={value}
+          onChange={(e) => handleChange(e, handleUpdateValue)}
+          onBlur={handleOnBlur(setIsFocused)}
+        />
+        <span onClick={handleOnFocus(ref, setIsFocused)} aria-hidden="true">
+          {fmtValueToLocaleString(value as number)}
+        </span>
+      </Styled.InputWrapper>
     </Styled.Wrapper>
   );
 };

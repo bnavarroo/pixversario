@@ -1,4 +1,5 @@
 import React from 'react';
+import { fmtValueToLocaleString } from '@pages/app/helpers';
 import { IProps } from './types';
 import * as Styled from './styles';
 
@@ -8,9 +9,7 @@ export const Result: React.FC<IProps> = ({ error, pixValue }) => (
     {pixValue > 0 && !error && (
       <Styled.Text>
         <span>o pix será de </span>
-        <b>
-          R$ {pixValue.toLocaleString('pt-br', { minimumFractionDigits: 2 })}
-        </b>
+        <b>R$ {fmtValueToLocaleString(pixValue)}</b>
       </Styled.Text>
     )}
   </Styled.Wrapper>

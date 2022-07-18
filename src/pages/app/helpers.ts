@@ -40,3 +40,5 @@ export const handleClickButton =
         setPixValue(parseFloat(randomValue.toFixed(2)));
       }
     };
+
+export const fmtValueToLocaleString = (value: number) => value.toLocaleString('pt-br', { minimumFractionDigits: 2 });
