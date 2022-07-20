@@ -23,6 +23,7 @@ export const Main = styled.main`
   flex-wrap: wrap;
   gap: 20px;
   text-align: center;
+  width: 100%;
 `;
 
 export const InputWrapper = styled.div`

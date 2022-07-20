@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Text = styled.p`
+  min-height: 34px;
+
   b {
     font-size: 22px;
   }
